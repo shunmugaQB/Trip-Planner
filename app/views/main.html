@@ -1,0 +1,120 @@
+<div class="tripContainer">
+  <md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()">
+      <div class="origin">
+      <md-autocomplete
+          ng-disabled="main.isDisabled"
+          md-no-cache="main.noCache"
+          md-selected-item="main.selectedItem"
+          md-search-text-change="main.searchTextChange(main.searchText)"
+          md-search-text="main.searchText"
+          md-selected-item-change="main.selectedItemChange(item)"
+          md-items="item in main.states"
+          md-item-text="item.display"
+          md-min-length="0"
+          placeholder="Departure">
+        <md-item-template>
+          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{main.searchText}}" were found.
+          <a ng-click="main.newState(main.searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+    </div>
+    <div class="destination">
+      <md-autocomplete
+          ng-disabled="main.isDisabled"
+          md-no-cache="main.noCache"
+          md-selected-item="main.selectedItem"
+          md-search-text-change="main.searchTextChange(main.searchText)"
+          md-search-text="main.searchText"
+          md-selected-item-change="main.selectedItemChange(item)"
+          md-items="item in main.states"
+          md-item-text="item.display"
+          md-min-length="0"
+          placeholder="Destination">
+        <md-item-template>
+          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{main.searchText}}" were found.
+          <a ng-click="main.newState(main.searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+    </div>
+
+    <div>
+      <div class="date">
+          <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+      <div class="date">
+          <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+    </div>
+
+            <md-input-container>
+            <label>No.of.Stop</label>
+            <input ng-model="main.stop">
+          </md-input-container>
+      <br/>
+      <md-button class="md-raised md-primary submit">Submit</md-button>
+  </form>
+  </md-content>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Add/Del</th>
+      <th>Stop No.</th>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>Start Date</th>
+      <th>Stop Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="images/plus.png">/<img src="images/minus.png"></td>
+      <th scope="row">1</th>
+      <td>Trivandram</td>
+      <td>Goa</td>
+      <td>30/06/2016</td>
+      <td>02/07/2016</td>
+
+    </tr>
+    <tr>
+      <td><img src="images/plus.png">/<img src="images/minus.png"></td>
+      <th scope="row">2</th>
+      <td>Goa</td>
+      <td>Delhi</td>
+      <td>02/07/2016</td>
+      <td>03/07/2016</td>
+    </tr>
+  </tbody>
+</table>
+  <!-- 
+ <div class="row table">
+  <div class="col-md-2 tablecol">Add/Del</div>
+  <div class="col-md-2 tablecol">Stop No.</div>
+  <div class="col-md-2 tablecol">Origin</div>
+  <div class="col-md-2 tablecol">Destination</div>
+  <div class="col-md-2 tablecol">Start Date</div>
+  <div class="col-md-2 tablecol">Stop Date</div>
+</div>
+<div class="row table">
+  <div class="col-md-2 tablecol">Add/Del</div>
+  <div class="col-md-2 tablecol">1</div>
+  <div class="col-md-2 tablecol">Trivandram</div>
+  <div class="col-md-2 tablecol">Goa</div>
+  <div class="col-md-2 tablecol">30/06/2016</div>
+  <div class="col-md-2 tablecol">02/07/2016</div>
+</div>
+<div class="row table">
+  <div class="col-md-2 tablecol">Add/Del</div>
+  <div class="col-md-2 tablecol">2</div>
+  <div class="col-md-2 tablecol">Goa</div>
+  <div class="col-md-2 tablecol">Delhi</div>
+  <div class="col-md-2 tablecol">02/07/2016</div>
+  <div class="col-md-2 tablecol">03/07/2016</div>
+</div> -->
+</div>
