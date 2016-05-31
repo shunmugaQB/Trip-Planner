@@ -68,7 +68,7 @@ body {
   font-weight: bold;
   font-family: fantasy;
   font-style: oblique;
-  padding-left: 20px;
+  padding: 20px;
 }
 
 /* Responsive: Portrait tablets and up */
