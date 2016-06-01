@@ -1,9 +1,10 @@
 <div class="tripContainer">
   <md-content class="md-padding">
-    <form name = "trip" class = "form-container" ng-submit="main.submit()">
+    <form name = "trip" class = "form-container" ng-submit="main.tableGenerate()">
       <div class="origin">
       <md-autocomplete
           ng-disabled="main.isDisabled"
+          ng-model= "main.originText"
           md-no-cache="main.noCache"
           md-selected-item="main.origin"
           md-search-text-change="main.searchTextChange(main.originText)"
@@ -14,20 +15,20 @@
           md-min-length="0"
           placeholder="Departure">
         <md-item-template>
-          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+          <span md-highlight-text="main.originText" md-highlight-flags="^i">{{item.display}}</span>
         </md-item-template>
         <md-not-found>
-          No states matching "{{main.searchText}}" were found.
-          <a ng-click="main.newState(main.searchText)">Create a new one!</a>
+          No Places matching "{{main.originText}}" were found.
         </md-not-found>
       </md-autocomplete>
     </div>
     <div class="destination">
       <md-autocomplete
           ng-disabled="main.isDisabled"
+          ng-model= "main.destinationText"
           md-no-cache="main.noCache"
           md-selected-item="main.destination"
-          md-search-text-change="main.searchTextChange(main.destinationText)"
+          md-search-text-change="main.searchTextChangeEnd(main.destinationText)"
           md-search-text="main.destinationText"
           md-selected-item-change="main.selectedItemChange(item)"
           md-items="item in  main.querySearch(main.destinationText)"
@@ -35,10 +36,10 @@
           md-min-length="0"
           placeholder="Destination">
         <md-item-template>
-          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+          <span md-highlight-text="main.destinationText" md-highlight-flags="^i">{{item.display}}</span>
         </md-item-template>
         <md-not-found>
-          No places matching "{{main.searchText}}" were found.
+          No places matching "{{main.destinationText}}" were found.
         </md-not-found>
       </md-autocomplete>
     </div>
@@ -51,8 +52,8 @@
           <md-datepicker ng-model="main.EndDate" md-min-date="main.startDate" md-placeholder="Enter date"></md-datepicker>
       </div>
     </div>
-
-          <md-input-container>
+       <br/>
+          <md-input-container class = "stop">
             <label>No.of.Stop</label>
             <input type="number" step="any" name="stop" ng-model="main.stop" min="0"
                max="99" />
@@ -72,26 +73,29 @@
   <table class="table table-hover">
   <thead>
     <tr>
-      <th>Add/Del</th>
-      <th>Stop No.</th>
-      <th>Origin</th>
-      <th>Destination</th>
-      <th>Start Date</th>
-      <th>Stop Date</th>
+      <th class="addDel"><span>Add/Del</span></th>
+      <th class = "stopNo">Stop No.</th>
+      <th class = "textEllipsis">Origin</th>
+      <th class = "textEllipsis">Destination</th>
+      <th class = "startDate">Start Date</th>
+      <th class = "endDate">Stop Date</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="travel in main.tablesData track by $index">
-       <td><img  ng-click = "main.addTable($index)" src="images/plus.png">/<img  ng-click = "main.delTable($index)" src="images/minus.png"></td>
-      <th scope="row">{{$index + 1}}</th>
-      <td ng-show="travel.stopPlace === false && travel.originPlace === true"><input value = "{{travel.origin}}"></td>
-      <td ng-show="travel.stopPlace === true || travel.originPlace === true">
-        <input/> </td>
-      <td ng-show="travel.stopPlace === true|| travel.destPlace === true">
-        <input/> </td>
-      <td ng-show="travel.stopPlace === false && travel.destPlace === true"><input value= "{{travel.destination}}" ></td>
-      <td>{{travel.startDate}}</td>
-      <td>{{travel.endDate}}</td>
+       <td class="addDel"><img  ng-click = "main.addTable($index)" src="images/plus.png">/<img  ng-click = "main.delTable($index)" src="images/minus.png"></td>
+      <th class="stopNo" scope="row">{{$index + 1}}</th>
+      <td class = "textEllipsis" ng-show="travel.stopPlace === false && travel.originPlace === true">
+      <input id = "startPlace" value = "{{travel.start}}" ng-keyup="main.startChange()"></td>
+      <td class = "textEllipsis" ng-show="travel.stopPlace === true || travel.originPlace === true"> 
+      <input ng-model="travel.origin" ng-keyup="main.originChange($index)"/>
+      </td>
+      <td class = "textEllipsis" ng-show="travel.stopPlace === true|| travel.destPlace === true"> 
+      <input ng-model="travel.dest" ng-keyup="main.destChange($index,'')"/> </td>
+      <td class = "textEllipsis" ng-show="travel.stopPlace === false && travel.destPlace === true">
+      <input id="end" value = "{{travel.destination}}" ng-keyup="main.endChange($event)"/></td>
+      <td class = "startDate">{{travel.startDate}}</td>
+      <td class = "endDate">{{travel.endDate}}</td>
 
     </tr>
 
