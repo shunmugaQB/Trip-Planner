@@ -91,4 +91,44 @@ body {
 }
 
 
+/* Responsive: Portrait tablets and up */
+@media screen and (max-width: 560px) {
+ .form-container {
+  width:100%;
+ }
+
+  .origin, .destination {
+  width: 35%;
+  margin-right: 60px;
+  float: left;
+}
+
+.date {
+  width: 35%;
+  margin-right: 15px;
+  margin-top: 25px;
+  float: left;
+}
+
+}
+@media screen and (max-width: 470px) {
+.form-container {
+  width:100%;
+ }
+
+  .origin, .destination {
+  width: 95%;
+  margin-right: 60px;
+  margin-bottom: 20px;
+  float: left;
+}
+
+.date {
+  margin-right: 45px;
+  margin-top: 25px;
+  float: left;
+}
+}
+
+
 

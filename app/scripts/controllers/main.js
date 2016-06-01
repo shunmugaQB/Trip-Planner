@@ -26,12 +26,15 @@ angular.module('TripPlanner')
     $scope.delTable = delTable;
     $scope.checInputFields = checInputFields;
     $scope.tablesData = [];
-
+    $scope.stops = {};
+    // $scope.originStopUpdate = originStopUpdate;
+    // $scope.destStopUpdate = destStopUpdate;
 
 
      function addTable (index) {
 
     }
+
 
     function checInputFields () {
      var endDate = Date.parse($scope.EndDate);
@@ -62,14 +65,43 @@ angular.module('TripPlanner')
         var endDay = $scope.EndDate.getDate();
         var endCalendar = endMonth+'/'+endDay+'/'+endYear;
 
-         var tableData = {"origin":$scope.originText,
-          "destination":$scope.destinationText,
+         var startTableData = {"origin":$scope.originText,
+          "destination":"",
           "startDate": startCalendar,
-          "endDate": endCalendar}
+          "stopPlace": false,
+          "originPlace": true,
+          "endDate": ""};
 
-        $scope.tablesData.push(tableData);
-       }
+          var endTableData = {"origin":"",
+          "destination":$scope.destinationText,
+          "startDate": "",
+          "stopPlace": false,
+          "destPlace": true,
+          "endDate": endCalendar}
+          console.log("$scope.stop....",$scope.stop)
+           if($scope.stop > 1){
+          for (var i = 0; i < $scope.stop; i++) {
+             var stopsTableData = {
+          "destination":"",
+          "startDate": "",
+          "stopPlace": true,
+          "endDate": ""};
+
+           if(i==0){
+          $scope.tablesData.push(startTableData);
+           }else
+           {
+          if(i=== ($scope.stop-1)){
+          $scope.tablesData.push(endTableData);
+           }else {
+           $scope.tablesData.push(stopsTableData);
+           }
+         }
+        }
+      }
+
     }
+  }
 
     function querySearch (query) {
       var results = query ? $scope.states.filter( $scope.createFilterFor(query) ) : $scope.states,

@@ -1,6 +1,6 @@
 <div class="tripContainer">
   <md-content class="md-padding">
-    <form name = "trip" ng-submit="main.submit()">
+    <form name = "trip" class = "form-container" ng-submit="main.submit()">
       <div class="origin">
       <md-autocomplete
           ng-disabled="main.isDisabled"
@@ -81,13 +81,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="table in main.tablesData">
+    <tr ng-repeat="travel in main.tablesData track by $index">
        <td><img  ng-click = "main.addTable($index)" src="images/plus.png">/<img  ng-click = "main.delTable($index)" src="images/minus.png"></td>
-      <th scope="row">{{$index}}</th>
-      <td>{{table.origin}}</td>
-      <td>{{table.destination}}</td>
-      <td>{{table.startDate}}</td>
-      <td>{{table.endDate}}</td>
+      <th scope="row">{{$index + 1}}</th>
+      <td ng-show="travel.stopPlace === false && travel.originPlace === true"><input value = "{{travel.origin}}"></td>
+      <td ng-show="travel.stopPlace === true || travel.originPlace === true">
+        <input/> </td>
+      <td ng-show="travel.stopPlace === true|| travel.destPlace === true">
+        <input/> </td>
+      <td ng-show="travel.stopPlace === false && travel.destPlace === true"><input value= "{{travel.destination}}" ></td>
+      <td>{{travel.startDate}}</td>
+      <td>{{travel.endDate}}</td>
+
     </tr>
 
   </tbody>
