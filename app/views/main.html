@@ -1,0 +1,100 @@
+<div class="tripContainer">
+  <md-content class="md-padding">
+    <form name = "trip" class = "form-container" ng-submit="main.submit()">
+      <div class="origin">
+      <md-autocomplete
+          ng-disabled="main.isDisabled"
+          md-no-cache="main.noCache"
+          md-selected-item="main.origin"
+          md-search-text-change="main.searchTextChange(main.originText)"
+          md-search-text="main.originText"
+          md-selected-item-change="main.selectedItemChange(item)"
+          md-items="item in  main.querySearch(main.originText)"
+          md-item-text="item.display"
+          md-min-length="0"
+          placeholder="Departure">
+        <md-item-template>
+          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{main.searchText}}" were found.
+          <a ng-click="main.newState(main.searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+    </div>
+    <div class="destination">
+      <md-autocomplete
+          ng-disabled="main.isDisabled"
+          md-no-cache="main.noCache"
+          md-selected-item="main.destination"
+          md-search-text-change="main.searchTextChange(main.destinationText)"
+          md-search-text="main.destinationText"
+          md-selected-item-change="main.selectedItemChange(item)"
+          md-items="item in  main.querySearch(main.destinationText)"
+          md-item-text="item.display"
+          md-min-length="0"
+          placeholder="Destination">
+        <md-item-template>
+          <span md-highlight-text="main.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No places matching "{{main.searchText}}" were found.
+        </md-not-found>
+      </md-autocomplete>
+    </div>
+
+    <div>
+      <div class="date">
+          <md-datepicker ng-model="main.startDate"  md-min-date="main.startDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+      <div class="date">
+          <md-datepicker ng-model="main.EndDate" md-min-date="main.startDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+    </div>
+
+          <md-input-container>
+            <label>No.of.Stop</label>
+            <input type="number" step="any" name="stop" ng-model="main.stop" min="0"
+               max="99" />
+                <div ng-messages="trip.stop.$error" multiple>
+          <div ng-message="min">
+            You should not give negative integers.
+          </div>
+           <div ng-message="max">
+            Maximum stop is up to 99
+          </div>
+        </div>
+          </md-input-container>
+      <br/>
+      <md-button type="submit" ng-disabled="main.checInputFields()" class="md-raised md-primary submit">Submit</md-button>
+  </form>
+  </md-content>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Add/Del</th>
+      <th>Stop No.</th>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>Start Date</th>
+      <th>Stop Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="travel in main.tablesData track by $index">
+       <td><img  ng-click = "main.addTable($index)" src="images/plus.png">/<img  ng-click = "main.delTable($index)" src="images/minus.png"></td>
+      <th scope="row">{{$index + 1}}</th>
+      <td ng-show="travel.stopPlace === false && travel.originPlace === true"><input value = "{{travel.origin}}"></td>
+      <td ng-show="travel.stopPlace === true || travel.originPlace === true">
+        <input/> </td>
+      <td ng-show="travel.stopPlace === true|| travel.destPlace === true">
+        <input/> </td>
+      <td ng-show="travel.stopPlace === false && travel.destPlace === true"><input value= "{{travel.destination}}" ></td>
+      <td>{{travel.startDate}}</td>
+      <td>{{travel.endDate}}</td>
+
+    </tr>
+
+  </tbody>
+</table>
+</div>
