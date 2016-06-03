@@ -8,7 +8,7 @@
  * Controller of the TripPlanner
  */
 angular.module('TripPlanner')
-  .controller('MainCtrl', function($scope, $timeout, $q, $log, $http) {
+  .controller('MainCtrl', function($scope, $timeout, $q, $log, $http, $translate) {
     var $scope = this;
     $scope.simulateQuery = false;
     $scope.isDisabled = false;
@@ -24,6 +24,9 @@ angular.module('TripPlanner')
     $scope.startChange = startChange;
     $scope.endChange = endChange;
     $scope.searchTextChangeEnd = searchTextChangeEnd;
+    $scope.reset = reset;
+    $scope.englishLang = englishLang;
+    $scope.germanLang = germanLang;
     $scope.startDate = new Date();
     $scope.EndDate;
     $scope.stop = "";
@@ -158,6 +161,14 @@ angular.module('TripPlanner')
       }
     }
 
+    function englishLang () {
+        $translate.use('en_EN')
+    };
+
+    function germanLang () {
+        $translate.use('de_DE')
+    };
+
     /* To validate the form  */
     function checInputFields() {
       var endDate = Date.parse($scope.EndDate);
@@ -169,6 +180,14 @@ angular.module('TripPlanner')
       }
 
       return true;
+    }
+
+    function reset () {
+      $scope.destinationText = null;
+      $scope.originText = null;
+      $scope.stop = '';
+      $scope.EndDate = null;
+      $scope.tablesData = [];
     }
 
     /* To generate the table rows  */

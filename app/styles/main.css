@@ -109,6 +109,11 @@ body {
     font-style: italic;
     font-family: -webkit-pictograph;
   }
+
+.md-button.md-hue-1.md-warn {
+  background-color: black;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

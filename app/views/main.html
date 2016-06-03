@@ -1,23 +1,26 @@
+        <md-button class="md-warn md-hue-1"  ng-click="main.englishLang()">{{'ENG_LANG' | translate}}</md-button>
+      <md-button class="md-warn md-hue-1" ng-click="main.germanLang()">{{'GER_LANG' | translate}}</md-button>
+
 <div class="tripContainer">
   <md-content class="md-padding">
     <form name="trip" class="form-container" ng-submit="main.tableGenerate()">
       <div class="origin">
-        <md-autocomplete ng-disabled="main.isDisabled" ng-model="main.originText" md-no-cache="main.noCache" md-selected-item="main.origin" md-search-text-change="main.searchTextChange(main.originText)" md-search-text="main.originText" md-selected-item-change="main.selectedItemChange(item)" md-items="item in  main.querySearch(main.originText)" md-item-text="item.display" md-min-length="0" placeholder="Departure">
+        <md-autocomplete ng-disabled="main.isDisabled" ng-model="main.originText" md-no-cache="main.noCache" md-selected-item="main.origin" md-search-text-change="main.searchTextChange(main.originText)" md-search-text="main.originText" md-selected-item-change="main.selectedItemChange(item)" md-items="item in  main.querySearch(main.originText)" md-item-text="item.display" md-min-length="0" placeholder="{{'ORIGIN' | translate}}">
           <md-item-template>
             <span md-highlight-text="main.originText" md-highlight-flags="^i">{{item.display}}</span>
           </md-item-template>
           <md-not-found>
-            No Places matching "{{main.originText}}" were found.
+           {{'NO_PLACES' | translate}}  "{{main.originText}}"
           </md-not-found>
         </md-autocomplete>
       </div>
       <div class="destination">
-        <md-autocomplete ng-disabled="main.isDisabled" ng-model="main.destinationText" md-no-cache="main.noCache" md-selected-item="main.destination" md-search-text-change="main.searchTextChangeEnd(main.destinationText)" md-search-text="main.destinationText" md-selected-item-change="main.selectedItemChange(item)" md-items="item in  main.querySearch(main.destinationText)" md-item-text="item.display" md-min-length="0" placeholder="Destination">
+        <md-autocomplete ng-disabled="main.isDisabled" ng-model="main.destinationText" md-no-cache="main.noCache" md-selected-item="main.destination" md-search-text-change="main.searchTextChangeEnd(main.destinationText)" md-search-text="main.destinationText" md-selected-item-change="main.selectedItemChange(item)" md-items="item in  main.querySearch(main.destinationText)" md-item-text="item.display" md-min-length="0" placeholder="{{'DEST' | translate}}">
           <md-item-template>
             <span md-highlight-text="main.destinationText" md-highlight-flags="^i">{{item.display}}</span>
           </md-item-template>
           <md-not-found>
-            No places matching "{{main.destinationText}}" were found.
+            {{'NO_PLACES' | translate}}  "{{main.destinationText}}"
           </md-not-found>
         </md-autocomplete>
       </div>
@@ -32,30 +35,32 @@
       </div>
       <br/>
       <md-input-container class="stop">
-        <label>No.of.Stop</label>
+        <label>{{'STOP' | translate}}</label>
         <input type="number" step="any" name="stop" ng-model="main.stop" min="1" max="99" />
         <div ng-messages="trip.stop.$error" multiple>
           <div ng-message="min">
-            Please do not give zero or negative integers.
+            {{'MIN_ERROR' | translate}}
           </div>
           <div ng-message="max">
-            Maximum stop is up to 99
+            {{'MAX_ERROR' | translate}}
           </div>
         </div>
       </md-input-container>
       <br/>
-      <md-button type="submit" ng-disabled="main.checInputFields()" class="md-raised md-primary submit">Submit</md-button>
+
+      <md-button type="submit" ng-disabled="main.checInputFields()" class="md-raised md-primary submit">{{'GOTRIP' | translate}}</md-button>
     </form>
+      <md-button ng-disabled="main.tablesData.length == 0" ng-click="main.reset()" class="md-raised md-primary submit">{{'NEWTRIP' | translate}}</md-button>
   </md-content>
   <table class="table table-hover">
     <thead>
       <tr class="tableHeading">
-        <th class="addDel"><span>Add/Del</span></th>
-        <th class="stopNo">Stop No.</th>
-        <th class="textEllipsis">Origin</th>
-        <th class="textEllipsis">Destination</th>
-        <th class="startDate">Start Date</th>
-        <th class="endDate">Stop Date</th>
+        <th class="addDel"><span>{{'ADD_DEL' | translate}}</span></th>
+        <th class="stopNo">{{'STOPNO' | translate}}</th>
+        <th class="textEllipsis">{{'ORIGIN' | translate}}</th>
+        <th class="textEllipsis">{{'DEST' | translate}}</th>
+        <th class="startDate">{{'START_DATE' | translate}}</th>
+        <th class="endDate">{{'STOP_DATE' | translate}}</th>
       </tr>
     </thead>
     <tbody>
